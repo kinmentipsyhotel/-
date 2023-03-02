@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Room Booking Program</title>
+  </head>
+  <body>
+    <h1>Room Booking Program</h1>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" required><br><br>
+      
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br><br>
+      
+      <label for="checkin">Check-in Date:</label>
+      <input type="date" id="checkin" required><br><br>
+      
+      <label for="checkout">Check-out Date:</label>
+      <input type="date" id="checkout" required><br><br>
+      
+      <label for="roomtype">Room Type:</label>
+      <select id="roomtype">
+        <option value="single">Single Room</option>
+        <option value="double">Double Room</option>
+        <option value="suite">Suite</option>
+      </select><br><br>
+      
+      <input type="submit" value="Submit" onclick="submitBooking()">
+    </form>
+    
+    <script>
+      function submitBooking() {
+        // Get form values
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+        const roomtype = document.getElementById("roomtype").value;
+        
+        // Create booking object
+        const booking = {
+          name: name,
+          phone: phone,
+          checkin: checkin,
+          checkout: checkout,
+          roomtype: roomtype
+        };
+        
+        // Store booking data in local storage
+        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        bookings.push(booking);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        
+        // Show success message
+        alert("Booking successful!");
+        
+        // Clear form
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("checkin").value = "";
+        document.getElementById("checkout").value = "";
+        document.getElementById("roomtype").selectedIndex = 0;
+      }
+    </script>
+  </body>
+</html>
